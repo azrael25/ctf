@@ -1,0 +1,8 @@
+:root {
+    @lost gutter 20px;
+    @lost flexbox flex;
+    @lost cycle none;
+
+    --columns-count: 12;
+    --page-pagging: 10px;
+}

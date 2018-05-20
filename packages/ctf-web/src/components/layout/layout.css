@@ -1,0 +1,13 @@
+.layout {
+    display: flex;
+    min-height: 100vh;
+
+    & .sidebar {
+        flex: 0 0 200px;
+    }
+
+    & .content {
+        flex: 1;
+        position: relative;
+    }
+}

@@ -1,0 +1,9 @@
+@import '../src/index.css';
+
+body {
+    margin: 0;
+}
+
+#root {
+    padding: 50px 25px;
+}

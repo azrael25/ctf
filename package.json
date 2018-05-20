@@ -1,0 +1,31 @@
+{
+    "name": "ctf",
+    "version": "0.0.1",
+    "description": "CTF paltform",
+    "scripts": {
+        "build": "lerna run build",
+        "dev": "lerna run dev",
+        "ui": "lerna run storybook",
+        "bootstrap": "lerna bootstrap --ignore-scripts"
+    },
+    "devDependencies": {
+        "@babel/core": "7.0.0-beta.47",
+        "@babel/node": "7.0.0-beta.47",
+        "@babel/plugin-transform-react-constant-elements": "7.0.0-beta.47",
+        "@babel/plugin-transform-react-inline-elements": "7.0.0-beta.47",
+        "@babel/preset-env": "7.0.0-beta.47",
+        "@babel/preset-react": "7.0.0-beta.47",
+        "@babel/preset-stage-0": "7.0.0-beta.47",
+        "babel-core": "^7.0.0-0",
+        "babel-eslint": "8.2.3",
+        "babel-jest": "23.0.0-charlie.2",
+        "babel-plugin-add-module-exports": "0.2.1",
+        "babel-plugin-transform-react-remove-prop-types": "0.4.13",
+        "eslint": "5.0.0-alpha.3",
+        "eslint-plugin-babel": "5.1.0",
+        "eslint-plugin-react": "7.8.2",
+        "express": "5.0.0-alpha.6",
+        "jest": "23.0.0-charlie.2",
+        "lerna": "3.0.0-beta.21"
+    }
+}

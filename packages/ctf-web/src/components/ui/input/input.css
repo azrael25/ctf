@@ -1,0 +1,49 @@
+@import '../../common/common.css';
+
+.input {
+    width: 100%;
+    height: 30px;
+    margin: 0;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-color: var(--color-cyan-20);
+    color: var(--color-black-80);
+    outline: none;
+    transition: box-shadow var(--animation);
+}
+
+.input::placeholder {
+    font-size: 14px;
+    letter-spacing: normal;
+    color: var(--color-black-50);
+}
+
+.input:focus {
+    box-shadow: 0 0 5px 0 var(--color-cyan);
+}
+
+.input_error {
+    background-color: var(--color-sunset-40);
+}
+
+.input_error:focus {
+    box-shadow: 0 0 5px 0 var(--color-sunset);
+}
+
+.input_password {
+    font-size: 18px;
+    letter-spacing: 4px;
+}
+
+.input[disabled],
+.input[disabled]:hover,
+.input[disabled]:focus {
+    opacity: 0.5;
+    user-select: none;
+    outline: none;
+    box-shadow: none;
+    pointer-events: none;
+}

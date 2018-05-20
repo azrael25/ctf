@@ -1,0 +1,23 @@
+//@import '../common/common.css';
+//
+//.grid {
+//    &__row {
+//        font-size: 0;
+//        line-height: 0;
+//    }
+//
+//    &__column {
+//        display: inline-block;
+//        @apply --text;
+//
+//        @for $i from 1 to var(--columns-count) {
+//            &_size-$i {
+//                lost-column: $i/var(--columns-count);
+//            }
+//
+//            &_offset-$i {
+//                lost-offset: $i/var(--columns-count);
+//            }
+//        }
+//    }
+//}

@@ -1,0 +1,20 @@
+:root {
+    --color-black: #222222;
+    --color-oslo-gray: #999999;
+    --color-silver-light: #bbbbbb;
+    --color-white: #ffffff;
+
+    --color-sunset: #f44336;
+    --color-sunglow: #ffca3a;
+    --color-atlantis: #8ac926;
+    --color-cyan: #1982c4;
+    --color-lavender: #6a4c93;
+
+    --color-white-0: color(var(--color-white) alpha(0%));
+    --color-black-50: color(var(--color-black) alpha(50%));
+    --color-black-80: color(var(--color-black) alpha(80%));
+    --color-sunset-40: color(var(--color-sunset) alpha(40%));
+    --color-cyan-20: color(var(--color-cyan) alpha(20%));
+    --color-cyan-60: color(var(--color-cyan) alpha(60%));
+    --color-cyan-120: color(var(--color-cyan) shade(20%));
+}
