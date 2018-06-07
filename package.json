@@ -1,7 +1,12 @@
 {
     "name": "ctf",
-    "version": "0.0.1",
-    "description": "CTF paltform",
+    "version": "1.0.0-alpha",
+    "description": "Platform to organize CTF competitions",
+    "keywords": ["ctf", "capture the flag", "competition"],
+    "homepage": "https://github.com/azrael25/ctf",
+    "license": "MIT",
+    "author": "Dmitry Mulyavka",
+    "repository": "https://github.com/azrael25/ctf.git",
     "scripts": {
         "build": "lerna run build",
         "dev": "lerna run dev",
