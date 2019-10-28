@@ -1,5 +1,0 @@
-:root {
-    @custom-media --mobile (max-width: 767px);
-    @custom-media --tablet (width >= 768px) and (width < 992px);
-    @custom-media --desktop (min-width: 992px);
-}

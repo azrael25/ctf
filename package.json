@@ -3,29 +3,31 @@
     "version": "0.0.1",
     "description": "CTF paltform",
     "scripts": {
-        "build": "lerna run build",
-        "dev": "lerna run dev",
-        "ui": "lerna run storybook",
+        "build": "lerna run build --stream",
+        "dev": "lerna run dev --stream",
         "bootstrap": "lerna bootstrap --ignore-scripts"
     },
+    "dependencies": {
+        "apollo-server": "^2.9.7",
+        "graphql": "^14.5.8"
+    },
     "devDependencies": {
-        "@babel/core": "7.0.0-beta.47",
-        "@babel/node": "7.0.0-beta.47",
-        "@babel/plugin-transform-react-constant-elements": "7.0.0-beta.47",
-        "@babel/plugin-transform-react-inline-elements": "7.0.0-beta.47",
-        "@babel/preset-env": "7.0.0-beta.47",
-        "@babel/preset-react": "7.0.0-beta.47",
-        "@babel/preset-stage-0": "7.0.0-beta.47",
+        "@babel/core": "^7.6.4",
+        "@babel/node": "^7.6.3",
+        "@babel/plugin-transform-react-constant-elements": "^7.6.3",
+        "@babel/plugin-transform-react-inline-elements": "^7.2.0",
+        "@babel/preset-env": "^7.6.3",
+        "@babel/preset-react": "^7.6.3",
         "babel-core": "^7.0.0-0",
-        "babel-eslint": "8.2.3",
-        "babel-jest": "23.0.0-charlie.2",
-        "babel-plugin-add-module-exports": "0.2.1",
-        "babel-plugin-transform-react-remove-prop-types": "0.4.13",
-        "eslint": "5.0.0-alpha.3",
-        "eslint-plugin-babel": "5.1.0",
-        "eslint-plugin-react": "7.8.2",
-        "express": "5.0.0-alpha.6",
-        "jest": "23.0.0-charlie.2",
-        "lerna": "3.0.0-beta.21"
+        "babel-eslint": "^10.0.3",
+        "babel-jest": "^24.9.0",
+        "babel-plugin-add-module-exports": "^1.0.2",
+        "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+        "eslint": "^6.6.0",
+        "eslint-plugin-babel": "^5.3.0",
+        "eslint-plugin-react": "^7.16.0",
+        "express": "^4.17.1",
+        "jest": "^24.9.0",
+        "lerna": "^3.18.3"
     }
 }
