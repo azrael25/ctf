@@ -1,5 +1,0 @@
-:root {
-    --animation-time: 100ms;
-    --animation-easing: ease-in-out;
-    --animation: var(--animation-time) var(--animation-easing);
-}
