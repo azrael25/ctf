@@ -1,15 +1,13 @@
-const lost = require('lost'),
-    postcssAtRulesVariables = require('postcss-at-rules-variables'),
-    postcssImport = require('postcss-import'),
-    postcssFor = require('postcss-for'),
-    postcssCssnext = require('postcss-cssnext');
+const autoprefixer = require('autoprefixer'),
+    env = require('postcss-preset-env'),
+    cssnano = require('cssnano'),
+    normalize = require('postcss-normalize');
 
 module.exports = {
     plugins: [
-        postcssImport({ filter: path => !/normalize/.test(path) }),
-        postcssCssnext,
-        postcssAtRulesVariables,
-        postcssFor,
-        lost
+        normalize,
+        env,
+        autoprefixer,
+        cssnano
     ]
 };

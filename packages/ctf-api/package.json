@@ -2,6 +2,9 @@
     "name": "@ctf/api",
     "version": "0.0.1",
     "private": true,
+    "files": [
+        "index.js"
+    ],
     "scripts": {
         "dev": "babel-node index.js"
     },
