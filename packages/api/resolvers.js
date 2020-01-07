@@ -1,13 +1,14 @@
-import { db } from './db';
-
 function tasks() {
-    return db.tasks();
+    return [];
 }
 
 function scoreboard() {
-    return db.players().map(player => ({
+    const players = [],
+        tasks = [];
+
+    return players.map(player => ({
         ...player,
-        tasks: player.tasks.map(id => db.tasks(id))
+        tasks: JSON.parse(player.tasks).map(id => tasks.find(task => task.id === id))
     }));
 }
 

@@ -5,12 +5,13 @@
     "scripts": {
         "build": "lerna run build --stream",
         "dev": "lerna run dev --stream",
-        "dev:api": "babel-node packages/api/index.js",
+        "dev:api": "DEV=1 babel-node packages/api/index.js",
         "bootstrap": "lerna bootstrap --ignore-scripts"
     },
     "devDependencies": {
         "@babel/core": "^7.7.7",
         "@babel/node": "^7.7.7",
+        "@babel/plugin-proposal-optional-chaining": "^7.7.5",
         "@babel/plugin-transform-react-constant-elements": "^7.7.4",
         "@babel/plugin-transform-react-inline-elements": "^7.7.4",
         "@babel/preset-env": "^7.7.7",

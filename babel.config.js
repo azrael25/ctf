@@ -3,6 +3,7 @@ module.exports = {
         '@babel/preset-env'
     ],
     plugins: [
+        '@babel/plugin-proposal-optional-chaining',
         'add-module-exports'
     ]
 };
