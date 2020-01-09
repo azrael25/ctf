@@ -1,12 +1,16 @@
 import jwt from 'jsonwebtoken';
 
-const secret = 'secret';
+let key;
+
+export function init(secret) {
+    key = secret;
+}
 
 export function decode(auth) {
     return { id: '1' };
 
     try {
-        return jwt.verify(auth, secret);
+        return jwt.verify(auth, key);
     } catch (err) {
         return { id: null };
     }
@@ -17,5 +21,5 @@ const options = {
 };
 
 export function encode(id) {
-    return jwt.sign({ id }, secret, options);
+    return jwt.sign({ id }, key, options);
 }

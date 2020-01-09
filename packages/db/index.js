@@ -1,13 +1,11 @@
 import path from 'path';
-import crypto from 'crypto';
 import SQL from 'sequelize';
 
-// const sha1 = crypto.createHash('sha1');
-
-export function init() {
-    const db = new SQL('database', 'dbadmin', '111', {
+export function initDB(username, password) {
+    const db = new SQL('database', username, password, {
         dialect: 'sqlite',
         storage: path.resolve(__dirname, './store.sqlite'),
+        // storage: ':memory:',
         logging: false
     });
 
@@ -36,7 +34,9 @@ export function init() {
         name: SQL.STRING,
         email: SQL.STRING,
         validated: SQL.BOOLEAN,
-        tasks: SQL.JSON
+        tasks: SQL.JSON,
+        passwordHash: SQL.STRING,
+        isAdmin: SQL.BOOLEAN
     });
 
     db.sync();

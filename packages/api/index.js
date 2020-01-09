@@ -1,24 +1,27 @@
 import { ApolloServer } from 'apollo-server';
-import { init } from '@ctf/db';
-import typeDefs from './schema';
-import resolvers from './resolvers';
-import { decode } from './auth';
-import { seeds } from './seeds';
+import { initDB } from '@ctf/db';
+import typeDefs from './src/schema';
+import resolvers from './src/resolvers';
+import * as auth from './src/auth';
+import { seeds } from './src/seeds';
 
-const { instance, ...db } = init(),
+// Need to be auto-generated for each installation
+const secret = '123abc';
+
+const { instance, ...db } = initDB('dbadmin', secret),
     defaultPort = 4000;
+
+auth.init(secret);
 
 if (process.env.DEV) {
     seeds(instance, db);
 }
 
 const context = async ({ req }) => {
-    let { id } = decode(req?.headers?.authorization),
+    const { id } = auth.decode(req?.headers?.authorization),
         user = await db.players.findByPk(id);
 
-    user && (user = user.dataValues);
-
-    return { user };
+    return { user: user?.dataValues };
 };
 
 const server = new ApolloServer({
