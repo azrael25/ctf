@@ -4,7 +4,7 @@ export default gql`
     type Player {
         id: ID!
         name: String
-        tasks: [Task]!
+        score: Int!
     }
 
     type Profile {
@@ -13,6 +13,7 @@ export default gql`
         email: String!
         validated: Boolean!
         tasks: [Task]!
+        score: Int!
     }
 
     type Task {
@@ -30,13 +31,15 @@ export default gql`
     }
 
     type Query {
-        tasks: [Task]!
-        scoreboard: [Player]!
-        me: Player
+        tasks: [Task]
+        scoreboard: [Player]
+        me: Profile
     }
     
     type Mutation {
+        signup(name: String, email: String, password: String): String
         login(email: String, password: String): String
+        logout: String
         submit(flag: String): FlagSubmitResponse!
     }
 `;

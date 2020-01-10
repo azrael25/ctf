@@ -7,8 +7,6 @@ export function init(secret) {
 }
 
 export function decode(auth) {
-    return { id: '1' };
-
     try {
         return jwt.verify(auth, key);
     } catch (err) {

@@ -1,8 +1,6 @@
 import { DataSource } from 'apollo-datasource';
 import crypto from 'crypto';
 import isEmail from 'isemail';
-import { ok, err } from '../response';
-import * as auth from '../auth';
 
 const sha1 = crypto.createHash('sha1');
 
@@ -27,23 +25,19 @@ export class PlayerAPI extends DataSource {
         this.secret = secret;
     }
 
-    initialize(config) {
-        this.context = config.context;
-    }
-
-    async signup(name, email, password) {
-        if (!name) return err('name is required');
-        if (!email) return err('email is required');
-        if (!password) return err('password is required');
-        if (!isEmail.validate(email)) return err('email is invalid');
-        if (!checkPassword(password)) return err('password is too weak');
-
-        let existing = await this.db.findOne({ where: { email } });
-
-        if (existing) return err('user already exists');
+    async signup({ name, email, password }) {
+        if (!name) return { err: 'name is required' };
+        if (!email) return { err: 'email is required' };
+        if (!password) return { err: 'password is required' };
+        if (!isEmail.validate(email)) return { err: 'email is invalid' };
+        if (!checkPassword(password)) return { err: 'password is too weak' };
 
         try {
-            await this.db.create({
+            let existing = await this.db.findOne({ where: { email } });
+
+            if (existing) return { err: 'user already exists' };
+
+            let player = await this.db.create({
                 name,
                 email,
                 validated: false,
@@ -52,22 +46,47 @@ export class PlayerAPI extends DataSource {
                 isAdmin: false
             });
 
-            return ok('user is created');
+            return {
+                id: player.id,
+                err: null
+            };
         } catch (e) {
-            return err('something went wrong');
+            return { err: 'something went wrong' };
         }
     }
 
-    async login(email, password) {
-        if (!email) return err('email is required');
-        if (!password) return err('password is required');
-        if (!isEmail.validate(email)) return err('email is invalid');
+    async login({ email, password }) {
+        if (!email) return { err: 'email is required' };
+        if (!password) return { err: 'password is required' };
+        if (!isEmail.validate(email)) return { err: 'email is invalid' };
 
-        let passwordHash = hash(password, this.secret),
-            player = await this.db.findOne({ where: { email, passwordHash } });
+        let passwordHash = hash(password, this.secret);
 
-        if (!player) return err('incorrect email or password');
+        try {
+            let player = await this.db.findOne({ where: { email, passwordHash } });
 
-        return ok('login success');
+            if (!player) return { err: 'incorrect email or password' };
+
+            return {
+                id: player.id,
+                err: null
+            };
+        } catch (e) {
+            return { err: 'something went wrong' };
+        }
+    }
+
+    async list() {
+        try {
+            let players = await this.db.findAll();
+
+            return players.map(player => ({
+                id: player.id,
+                name: player.name,
+                score: player.score
+            }));
+        } catch (e) {
+            return [];
+        }
     }
 }

@@ -36,7 +36,8 @@ export function initDB(username, password) {
         validated: SQL.BOOLEAN,
         tasks: SQL.JSON,
         passwordHash: SQL.STRING,
-        isAdmin: SQL.BOOLEAN
+        isAdmin: SQL.BOOLEAN,
+        score: SQL.INTEGER
     });
 
     db.sync();
