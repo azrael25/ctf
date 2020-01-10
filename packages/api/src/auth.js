@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 let key;
 
 export function init(secret) {
+    // key = `${Date.now()}.${secret}`;
     key = secret;
 }
 

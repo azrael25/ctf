@@ -12,7 +12,7 @@ export default gql`
         name: String
         email: String!
         validated: Boolean!
-        tasks: [Task]!
+        tasks: [Int]!
         score: Int!
     }
 
@@ -28,6 +28,7 @@ export default gql`
     type FlagSubmitResponse {
         success: Boolean!
         tasks: [Task]
+        me: Profile
     }
 
     type Query {

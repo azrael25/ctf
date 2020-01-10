@@ -19,15 +19,17 @@ if (process.env.DEV) {
     seeds(instance, { tasks, players });
 }
 
+const playerAPI = new PlayerAPI({ db: players, secret });
+
 const context = async ({ req, res }) => {
     const { id } = auth.decode(req?.headers?.authorization),
-        user = await players.findByPk(id);
+        user = await playerAPI.find(id);
 
     return {
-        user: user?.dataValues,
-        update({ token, status }) {
-            token && res?.set('authorization', token);
-            token === null && res?.removeHeader('authorization');
+        user,
+        update({ id, status }) {
+            id && res?.set('authorization', auth.encode(id));
+            id === null && res?.removeHeader('authorization');
             status && res?.status(status);
         }
     };
@@ -38,7 +40,7 @@ const server = new ApolloServer({
     resolvers,
     context,
     dataSources: () => ({
-        playerAPI: new PlayerAPI({ db: players, secret }),
+        playerAPI,
         taskAPI: new TaskAPI({ db: tasks })
     })
 });

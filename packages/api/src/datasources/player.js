@@ -8,6 +8,17 @@ function hash(...args) {
     return sha1.update(args.join('|')).digest('hex');
 }
 
+function getProfile(player) {
+    return {
+        id: player.id,
+        name: player.name,
+        email: player.email,
+        validated: player.validated,
+        tasks: JSON.parse(player.tasks),
+        score: player.score
+    };
+}
+
 const minPasswordLength = 8;
 
 function checkPassword(value = '') {
@@ -87,6 +98,24 @@ export class PlayerAPI extends DataSource {
             }));
         } catch (e) {
             return [];
+        }
+    }
+
+    async find(id) {
+        let player = await this.db.findByPk(id);
+
+        if (!player) return null;
+
+        return getProfile(player.dataValues);
+    }
+
+    async solve(id, tasks, score) {
+        try {
+            await this.db.update({ tasks: JSON.stringify(tasks), score }, { where: { id } });
+
+            return true;
+        } catch (e) {
+            return null;
         }
     }
 }
