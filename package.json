@@ -4,19 +4,20 @@
     "description": "CTF platform",
     "scripts": {
         "build": "lerna run build --stream",
+        "bootstrap": "lerna exec -- rm -rf ./node_modules && lerna link && lerna bootstrap --ignore-scripts && lerna exec --scope @ctf/db -- yarn --force",
         "dev": "lerna run dev --stream",
-        "dev:api": "DEV=1 babel-node packages/api/index.js",
-        "bootstrap": "lerna bootstrap --ignore-scripts"
+        "ncu": "lerna exec -- ncu"
     },
     "devDependencies": {
-        "@babel/core": "^7.7.7",
-        "@babel/node": "^7.7.7",
-        "@babel/plugin-proposal-optional-chaining": "^7.7.5",
-        "@babel/plugin-transform-react-constant-elements": "^7.7.4",
-        "@babel/plugin-transform-react-inline-elements": "^7.7.4",
-        "@babel/preset-env": "^7.7.7",
+        "@babel/cli": "^7.8.0",
+        "@babel/core": "^7.8.0",
+        "@babel/node": "^7.8.0",
+        "@babel/plugin-proposal-optional-chaining": "^7.8.0",
+        "@babel/plugin-transform-react-constant-elements": "^7.8.0",
+        "@babel/plugin-transform-react-inline-elements": "^7.8.0",
+        "@babel/preset-env": "^7.8.0",
         "@babel/preset-modules": "^0.1.2",
-        "@babel/preset-react": "^7.7.4",
+        "@babel/preset-react": "^7.8.0",
         "babel-core": "^7.0.0-0",
         "babel-eslint": "^10.0.3",
         "babel-jest": "^24.9.0",
@@ -27,6 +28,7 @@
         "eslint-plugin-react": "^7.17.0",
         "express": "^4.17.1",
         "jest": "^24.9.0",
-        "lerna": "^3.20.2"
+        "lerna": "^3.20.2",
+        "npm-check-updates": "^4.0.1"
     }
 }

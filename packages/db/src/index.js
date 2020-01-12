@@ -1,11 +1,15 @@
 import path from 'path';
 import SQL from 'sequelize';
+import { seeds } from './seeds';
 
-export function initDB(username, password) {
-    const db = new SQL('database', username, password, {
+const storage = process.env.NODE_ENV === 'development' ?
+    path.resolve(__dirname, './store.sqlite') :
+    ':memory:';
+
+async function init() {
+    const db = new SQL('database', 'dbadmin', 'dbpassword', {
         dialect: 'sqlite',
-        storage: path.resolve(__dirname, './store.sqlite'),
-        // storage: ':memory:',
+        storage,
         logging: false
     });
 
@@ -40,11 +44,25 @@ export function initDB(username, password) {
         score: SQL.INTEGER
     });
 
-    db.sync();
+    await db.sync();
+
+    console.log('🗄  Database ready');
 
     return {
-        instance: db,
-        tasks,
-        players
+        db,
+        models: {
+            tasks,
+            players
+        }
     };
+}
+
+const ready = new Promise(resolve => init()
+    .then(({ db, models }) => {
+        seeds(db, models);
+        resolve(models);
+    }));
+
+export function connect() {
+    return ready;
 }

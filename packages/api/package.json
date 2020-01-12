@@ -6,14 +6,16 @@
         "index.js"
     ],
     "scripts": {
-        "dev": "DEV=1 babel-node index.js"
+        "build": "NODE_ENV=production babel --config-file ../../babel.config.js src --out-dir dist",
+        "dev": "NODE_ENV=development babel-node --config-file ../../babel.config.js src/index.js"
     },
     "dependencies": {
         "@ctf/db": "^0.0.1",
         "apollo-datasource": "^0.6.4",
-        "apollo-server": "^2.9.15",
+        "apollo-server": "^2.9.16",
         "graphql": "^14.5.8",
         "isemail": "^3.2.0",
-        "jsonwebtoken": "^8.5.1"
+        "jsonwebtoken": "^8.5.1",
+        "nodemailer": "^6.4.2"
     }
 }
