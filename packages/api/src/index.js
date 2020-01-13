@@ -1,8 +1,8 @@
 import { ApolloServer } from 'apollo-server';
-import { connect } from '@ctf/db';
 import typeDefs from './schema';
 import resolvers from './resolvers';
 import * as auth from './auth';
+import { connect } from './db';
 import { PlayerAPI } from './datasources/player';
 import { TaskAPI } from './datasources/task';
 
@@ -12,7 +12,7 @@ const secret = '123abc';
 auth.init(secret);
 
 !async function() {
-    const { tasks, players } = await connect(),
+    const { models: { tasks, players } } = await connect(),
         defaultPort = 4000;
 
     const playerAPI = new PlayerAPI({ db: players, secret });

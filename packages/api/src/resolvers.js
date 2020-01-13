@@ -1,9 +1,11 @@
 export default {
     Query: {
-        me(_, __, { user, update }) {
+        async me(_, __, { dataSources: { taskAPI }, user, update }) {
             if (!user) update({ status: 403 });
 
-            return user;
+            let tasks = (await taskAPI.list(user.tasks)).filter(task => task.solved);
+
+            return { ...user, tasks };
         },
         tasks(_, __, { dataSources: { taskAPI }, user, update }) {
             if (!user) {
@@ -12,16 +14,26 @@ export default {
                 return null;
             }
 
-            return taskAPI.list(JSON.parse(user.tasks));
+            return taskAPI.list(user.tasks);
         },
-        scoreboard(_, __, { dataSources: { playerAPI }, user, update }) {
+        async scoreboard(_, __, { dataSources: { playerAPI, taskAPI }, user, update }) {
             if (!user) {
                 update({ status: 403 });
 
                 return null;
             }
 
-            return playerAPI.list();
+            let [players, tasks] = await Promise.all([
+                playerAPI.list(),
+                taskAPI.list()
+            ]);
+
+            return players
+                .map(player => ({
+                    ...player,
+                    tasks: player.tasks.map(id => tasks.find(task => task.id === id))
+                }))
+                .sort((a, b) => b.score - a.score || b.updatedAt - a.updatedAt);
         }
     },
 

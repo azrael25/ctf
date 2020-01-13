@@ -3,7 +3,9 @@
     "version": "0.0.1",
     "description": "CTF platform",
     "scripts": {
-        "build": "lerna run build --stream",
+        "build:src": "lerna run build --stream",
+        "build:images": "docker-compose build",
+        "build": "yarn build:src && yarn build:images",
         "bootstrap": "lerna exec -- rm -rf ./node_modules && lerna link && lerna bootstrap --ignore-scripts && lerna exec --scope @ctf/db -- yarn --force",
         "dev": "lerna run dev --stream",
         "ncu": "lerna exec -- ncu"

@@ -1,16 +1,27 @@
-import path from 'path';
 import SQL from 'sequelize';
 import { seeds } from './seeds';
 
-const storage = process.env.NODE_ENV === 'development' ?
-    path.resolve(__dirname, './store.sqlite') :
-    ':memory:';
+const isDev = process.env.NODE_ENV === 'development';
 
-async function init() {
-    const db = new SQL('database', 'dbadmin', 'dbpassword', {
-        dialect: 'sqlite',
-        storage,
-        logging: false
+export async function connect() {
+    const db = new SQL('ctf', 'dbadmin', 'dbpassword', {
+        host: isDev ? 'localhost' : 'db',
+        dialect: 'postgres',
+        logging: false,
+        retry: {
+            max: 5,
+            backoffBase: 1000,
+            match: [
+                SQL.ConnectionError
+            ],
+            report: (msg, { $current, max }) => {
+                if (/ECONNREFUSED/.test(msg)) {
+                    $current === max ?
+                        console.error(`Cannot connect to the database (${max} attempts were used)`) :
+                        console.warn(`Trying to connect to the database... ${max - $current} attempt(s) are remained`);
+                }
+            }
+        }
     });
 
     const tasks = db.define('task', {
@@ -46,6 +57,8 @@ async function init() {
 
     await db.sync();
 
+    await seeds(db, { players, tasks });
+
     console.log('🗄  Database ready');
 
     return {
@@ -55,14 +68,4 @@ async function init() {
             players
         }
     };
-}
-
-const ready = new Promise(resolve => init()
-    .then(({ db, models }) => {
-        seeds(db, models);
-        resolve(models);
-    }));
-
-export function connect() {
-    return ready;
 }

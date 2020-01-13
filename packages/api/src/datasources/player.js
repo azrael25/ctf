@@ -15,7 +15,8 @@ function getProfile(player) {
         email: player.email,
         validated: player.validated,
         tasks: JSON.parse(player.tasks),
-        score: player.score
+        score: player.score,
+        updatedAt: player.updatedAt.getTime()
     };
 }
 
@@ -94,7 +95,8 @@ export class PlayerAPI extends DataSource {
             return players.map(player => ({
                 id: player.id,
                 name: player.name,
-                score: player.score
+                score: player.score,
+                tasks: JSON.parse(player.tasks)
             }));
         } catch (e) {
             return [];
@@ -102,11 +104,15 @@ export class PlayerAPI extends DataSource {
     }
 
     async find(id) {
-        let player = await this.db.findByPk(id);
+        try {
+            let player = await this.db.findByPk(id);
 
-        if (!player) return null;
+            if (!player) return null;
 
-        return getProfile(player.dataValues);
+            return getProfile(player.dataValues);
+        } catch (err) {
+            return null;
+        }
     }
 
     async solve(id, tasks, score) {

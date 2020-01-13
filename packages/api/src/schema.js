@@ -5,6 +5,8 @@ export default gql`
         id: ID!
         name: String
         score: Int!
+        tasks: [Task]!
+        updatedAt: Int
     }
 
     type Profile {
@@ -12,8 +14,9 @@ export default gql`
         name: String
         email: String!
         validated: Boolean!
-        tasks: [Int]!
+        tasks: [Task]!
         score: Int!
+        updatedAt: Int
     }
 
     type Task {

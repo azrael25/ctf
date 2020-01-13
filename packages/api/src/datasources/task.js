@@ -18,7 +18,7 @@ export class TaskAPI extends DataSource {
         this.db = db;
     }
 
-    async list(solved) {
+    async list(solved = []) {
         try {
             let tasks = await this.db.findAll();
 
