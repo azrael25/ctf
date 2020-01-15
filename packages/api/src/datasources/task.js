@@ -38,4 +38,14 @@ export class TaskAPI extends DataSource {
             return null;
         }
     }
+
+    async update(id, fields) {
+        try {
+            await this.db.update(fields, { where: { id } });
+
+            return true;
+        } catch (e) {
+            return null;
+        }
+    }
 }

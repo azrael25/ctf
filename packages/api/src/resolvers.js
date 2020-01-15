@@ -57,7 +57,7 @@ export default {
 
             return null;
         },
-        async submit(_, { flag }, { dataSources: { playerAPI, taskAPI }, user, update }) {
+        async submit(_, { flag }, { dataSources: { playerAPI, taskAPI }, user, config, update }) {
             if (!user) {
                 update({ status: 403 });
 
@@ -75,7 +75,10 @@ export default {
                 score: user.score + task.value
             };
 
-            let res = playerAPI.solve(user.id, me.tasks, me.score);
+            let res = playerAPI.update(user.id, {
+                tasks: JSON.stringify(me.tasks),
+                score: me.score
+            });
 
             if (!res) return { success: false };
 

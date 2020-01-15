@@ -115,9 +115,9 @@ export class PlayerAPI extends DataSource {
         }
     }
 
-    async solve(id, tasks, score) {
+    async update(id, fields) {
         try {
-            await this.db.update({ tasks: JSON.stringify(tasks), score }, { where: { id } });
+            await this.db.update(fields, { where: { id } });
 
             return true;
         } catch (e) {

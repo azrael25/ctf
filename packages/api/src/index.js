@@ -2,20 +2,28 @@ import { ApolloServer } from 'apollo-server';
 import typeDefs from './schema';
 import resolvers from './resolvers';
 import * as auth from './auth';
-import { connect } from './db';
+import * as db from './db';
 import { PlayerAPI } from './datasources/player';
 import { TaskAPI } from './datasources/task';
 
-// Need to be auto-generated for each installation
-const secret = '123abc';
+// User config
+const config = {
+    secret: '123abc',
+    score: {
+        type: 'dynamic',
+        base: 1000,
+        step: 50,
+        min: 0.1
+    }
+};
 
-auth.init(secret);
+auth.init(config.secret);
 
 !async function() {
-    const { models: { tasks, players } } = await connect(),
+    const { models: { tasks, players } } = await db.connect(),
         defaultPort = 4000;
 
-    const playerAPI = new PlayerAPI({ db: players, secret });
+    const playerAPI = new PlayerAPI({ db: players, secret: config.secret });
 
     const context = async ({ req, res }) => {
         const { id } = auth.decode(req?.headers?.authorization),
@@ -23,6 +31,7 @@ auth.init(secret);
 
         return {
             user,
+            config,
             update({ id, status }) {
                 id && res?.set('authorization', auth.encode(id));
                 id === null && res?.removeHeader('authorization');
